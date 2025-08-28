@@ -1,7 +1,9 @@
 # app.py
-from fastapi import FastAPI, Query, HTTPException
+from fastapi import FastAPI, Query
 from pydantic import BaseModel
-from typing import Optional, Literal
+from typing import Literal
+from sqlalchemy.ext.asyncio import AsyncSession
+from db import SessionLocal
 
 from eth_stats import compute_address_stats
 
@@ -24,17 +26,14 @@ def get_stats(
     endblock: int = Query(99_999_999, ge=0),
     sort: Literal["asc", "desc"] = Query("asc"),
 ):
-    try:
-        result = compute_address_stats(
-            address,
-            include_internal=include_internal,
-            include_tokens=include_tokens,
-            exclude_zero_eth=exclude_zero_eth,
-            unified=unified,
-            startblock=startblock,
-            endblock=endblock,
-            sort=sort,
-        )
-        return result
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+    result = compute_address_stats(
+        address,
+        include_internal=include_internal,
+        include_tokens=include_tokens,
+        exclude_zero_eth=exclude_zero_eth,
+        unified=unified,
+        startblock=startblock,
+        endblock=endblock,
+        sort=sort,
+    )
+    return result

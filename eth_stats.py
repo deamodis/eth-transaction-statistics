@@ -109,7 +109,6 @@ def fetch_token_txs(address: str, api_key: str, api_url: str, startblock=0, endb
         "sort": sort, "apikey": api_key
     }, api_url, page_size, pause_s)
 
-# ===== Public API for your web app =====
 class ComputeOptions(Tuple):
     """Use a simple dict-like options object instead if you prefer Pydantic in FastAPI."""
     pass
