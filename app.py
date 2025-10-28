@@ -10,10 +10,7 @@ from eth_stats import compute_address_stats
 app = FastAPI(title="ETH Tx Stats (fixed EUR)")
 
 class StatsResponse(BaseModel):
-    params: dict
-    eth: dict
     stablecoins: dict
-    unified: dict
 
 async def get_session() -> AsyncSession:
     async with SessionLocal() as session:
@@ -23,7 +20,7 @@ async def get_session() -> AsyncSession:
 async def get_stats(
     address: str,
     include_internal: bool = Query(False),
-    include_tokens: bool = Query(False),
+    include_tokens: bool = Query(True),
     exclude_zero_eth: bool = Query(False),
     unified: bool = Query(False),
     startblock: int = Query(0, ge=0),
@@ -31,7 +28,6 @@ async def get_stats(
     sort: Literal["asc", "desc"] = Query("asc"),
     session: AsyncSession = Depends(get_session),
 ):
-
     session.add(AddressQuery(address=address))
     await session.commit()
 

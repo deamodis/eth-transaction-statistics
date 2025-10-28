@@ -162,24 +162,24 @@ def compute_address_stats(
             eth_hashes.append(tx["hash"])
 
     out: Dict[str, Dict] = {
-        "params": {
-            "address": address,
-            "startblock": startblock,
-            "endblock": endblock,
-            "sort": sort,
-            "include_internal": include_internal,
-            "include_tokens": include_tokens,
-            "unified": unified,
-            "exclude_zero_eth": exclude_zero_eth,
-            "rates": {
-                "ETH_EUR": FIXED_ETH_EUR_RATE,
-                "USD_EUR": FIXED_USD_EUR_RATE,
-            },
-        },
-        "eth": {
-            "raw_eth_amounts": eth_vals_eth,   # keep if you want ETH-denominated stats on client
-            "eur_stats": stats_with_hash(eth_vals_eur, eth_hashes),
-        },
+        # "params": {
+        #     "address": address,
+        #     "startblock": startblock,
+        #     "endblock": endblock,
+        #     "sort": sort,
+        #     "include_internal": include_internal,
+        #     "include_tokens": include_tokens,
+        #     "unified": unified,
+        #     "exclude_zero_eth": exclude_zero_eth,
+        #     "rates": {
+        #         "ETH_EUR": FIXED_ETH_EUR_RATE,
+        #         "USD_EUR": FIXED_USD_EUR_RATE,
+        #     },
+        # },
+        # "eth": {
+        #     "raw_eth_amounts": eth_vals_eth,   # keep if you want ETH-denominated stats on client
+        #     "eur_stats": stats_with_hash(eth_vals_eur, eth_hashes),
+        # },
     }
 
     # ---- Stablecoins (USDC/USDT only) ----
